@@ -16,7 +16,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 script {
-                    dir('frontend') {
+                    dir('SkillsMatch/frontend') {
                         sh '''
                         #!/bin/bash
                         sudo docker build -t insiafarhan/skillsmatch:frontend5 .
@@ -28,7 +28,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 script {
-                    dir('backend') {
+                    dir('SkillsMatch/backend') {
                         sh '''
                         #!/bin/bash
                         sudo docker build -t insiafarhan/skillsmatch:backend5 .
@@ -40,7 +40,7 @@ pipeline {
         stage('Build Job Docker Image') {
             steps {
                 script {
-                    dir('Job') {
+                    dir('SkillsMatch/Job') {
                         sh '''
                         #!/bin/bash
                         sudo docker build -t insiafarhan/skillsmatch:jobimage5 .
