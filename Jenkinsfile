@@ -2,21 +2,21 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig'
+        // KUBECONFIG_CREDENTIALS_ID = 'kubeconfig'
         DOCKER_CREDENTIALS_ID = 'dockerhub'
         GIT_REPO_URL = 'https://github.com/K200265-Insia-Farhan/SkillsMatch2.git'
     }
 
     stages {
-        stage('Connect to Kubernetes Cluster') {
-            steps {
-                script {
-                    withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
-                        sh 'kubectl config view'
-                    }
-                }
-            }
-        }
+        // stage('Connect to Kubernetes Cluster') {
+        //     steps {
+        //         script {
+        //             withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+        //                 sh 'kubectl config view'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Clone Git Repository') {
             steps {
@@ -43,16 +43,16 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
-                        sh 'kubectl set image deployment/frontenddeploy skillsmatch1=insiafarhan/skillsmatch:frontend5'
-                        sh 'kubectl set image deployment/backenddeploy skillsmatch1=insiafarhan/skillsmatch:backend5'
-                        sh 'kubectl set image deployment/jobdeploy skillsmatch1=insiafarhan/skillsmatch:jobimage5'
-                    }
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         script {
+        //             withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+        //                 sh 'kubectl set image deployment/frontenddeploy skillsmatch1=insiafarhan/skillsmatch:frontend5'
+        //                 sh 'kubectl set image deployment/backenddeploy skillsmatch1=insiafarhan/skillsmatch:backend5'
+        //                 sh 'kubectl set image deployment/jobdeploy skillsmatch1=insiafarhan/skillsmatch:jobimage5'
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
