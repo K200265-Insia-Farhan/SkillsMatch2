@@ -28,16 +28,16 @@ pipeline {
             steps {
                 script {
                     dir('SkillsMatch2/frontend') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:frontend5 .'
-                        sh 'sudo docker push insiafarhan/skillsmatch:frontend5'
+                        sh 'docker build -t insiafarhan/skillsmatch:frontend5 .'
+                        sh 'docker push insiafarhan/skillsmatch:frontend5'
                     }
                     dir('SkillsMatch2/backend') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:backend5 .'
-                        sh 'sudo docker push insiafarhan/skillsmatch:backend5'
+                        sh 'docker build -t insiafarhan/skillsmatch:backend5 .'
+                        sh 'docker push insiafarhan/skillsmatch:backend5'
                     }
                     dir('SkillsMatch2/Job') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:jobimage5 .'
-                        sh 'sudo docker push insiafarhan/skillsmatch:jobimage5'
+                        sh 'docker build -t insiafarhan/skillsmatch:jobimage5 .'
+                        sh 'docker push insiafarhan/skillsmatch:jobimage5'
                     }
                 }
             }
