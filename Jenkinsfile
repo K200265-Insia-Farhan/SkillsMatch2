@@ -17,7 +17,10 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:frontend5 .'
+                        sh '''
+                        #!/bin/bash
+                        sudo docker build -t insiafarhan/skillsmatch:frontend5 .
+                        '''
                     }
                 }
             }
@@ -26,7 +29,10 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:backend5 .'
+                        sh '''
+                        #!/bin/bash
+                        sudo docker build -t insiafarhan/skillsmatch:backend5 .
+                        '''
                     }
                 }
             }
@@ -35,7 +41,10 @@ pipeline {
             steps {
                 script {
                     dir('Job') {
-                        sh 'sudo docker build -t insiafarhan/skillsmatch:jobimage5 .'
+                        sh '''
+                        #!/bin/bash
+                        sudo docker build -t insiafarhan/skillsmatch:jobimage5 .
+                        '''
                     }
                 }
             }
