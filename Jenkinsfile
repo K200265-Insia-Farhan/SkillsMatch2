@@ -2,65 +2,37 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_CREDENTIALS_ID = 'dockerhub'
         KUBECONFIG_CREDENTIALS_ID = 'kubeconfig'
+        DOCKER_CREDENTIALS_ID = 'dockerhub'
         GIT_REPO_URL = 'https://github.com/K200265-Insia-Farhan/SkillsMatch2.git'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Git Repository') {
             steps {
                 git url: env.GIT_REPO_URL, branch: 'main'
             }
         }
-        stage('Build Frontend Docker Image') {
+
+        stage('Build and Push Docker Images') {
             steps {
                 script {
                     dir('SkillsMatch2/frontend') {
-                        sh '''
-                        #!/bin/bash
-                        sudo docker build -t insiafarhan/skillsmatch:frontend5 .
-                        '''
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:frontend5 .'
+                        sh 'sudo docker push insiafarhan/skillsmatch:frontend5'
                     }
-                }
-            }
-        }
-        stage('Build Backend Docker Image') {
-            steps {
-                script {
                     dir('SkillsMatch2/backend') {
-                        sh '''
-                        #!/bin/bash
-                        sudo docker build -t insiafarhan/skillsmatch:backend5 .
-                        '''
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:backend5 .'
+                        sh 'sudo docker push insiafarhan/skillsmatch:backend5'
                     }
-                }
-            }
-        }
-        stage('Build Job Docker Image') {
-            steps {
-                script {
                     dir('SkillsMatch2/Job') {
-                        sh '''
-                        #!/bin/bash
-                        sudo docker build -t insiafarhan/skillsmatch:jobimage5 .
-                        '''
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:jobimage5 .'
+                        sh 'sudo docker push insiafarhan/skillsmatch:jobimage5'
                     }
                 }
             }
         }
-        stage('Docker Login and Push') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-                        sh 'docker push insiafarhan/skillsmatch:frontend5'
-                        sh 'docker push insiafarhan/skillsmatch:backend5'
-                        sh 'docker push insiafarhan/skillsmatch:jobimage5'
-                    }
-                }
-            }
-        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 script {
