@@ -8,9 +8,19 @@ pipeline {
     }
 
     stages {
+        stage('Connect to Kubernetes Cluster') {
+            steps {
+                script {
+                    withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+                        sh 'kubectl config view'
+                    }
+                }
+            }
+        }
+
         stage('Clone Git Repository') {
             steps {
-                git url: env.GIT_REPO_URL, branch: 'main'
+                git branch: 'main', url: env.GIT_REPO_URL
             }
         }
 
