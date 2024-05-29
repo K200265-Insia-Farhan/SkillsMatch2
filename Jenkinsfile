@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'docker build -t insiafarhan/skillsmatch:frontend5 .'
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:frontend5 .'
                     }
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'docker build -t insiafarhan/skillsmatch:backend5 .'
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:backend5 .'
                     }
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     dir('Job') {
-                        sh 'docker build -t insiafarhan/skillsmatch:jobimage5 .'
+                        sh 'sudo docker build -t insiafarhan/skillsmatch:jobimage5 .'
                     }
                 }
             }
@@ -43,7 +43,8 @@ pipeline {
         stage('Docker Login and Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
                         sh 'docker push insiafarhan/skillsmatch:frontend5'
                         sh 'docker push insiafarhan/skillsmatch:backend5'
                         sh 'docker push insiafarhan/skillsmatch:jobimage5'
@@ -55,13 +56,12 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
-                        sh 'kubectl set image deployment/frontenddeploy skillsmatch=insiafarhan/skillsmatch:frontend5'
-                        sh 'kubectl set image deployment/backenddeploy skillsmatch=insiafarhan/skillsmatch:backend5'
-                        sh 'kubectl set image deployment/jobdeploy skillsmatch=insiafarhan/skillsmatch:jobimage5'
+                        sh 'kubectl set image deployment/frontenddeploy skillsmatch1=insiafarhan/skillsmatch:frontend5'
+                        sh 'kubectl set image deployment/backenddeploy skillsmatch1=insiafarhan/skillsmatch:backend5'
+                        sh 'kubectl set image deployment/jobdeploy skillsmatch1=insiafarhan/skillsmatch:jobimage5'
                     }
                 }
             }
         }
     }
 }
- 
