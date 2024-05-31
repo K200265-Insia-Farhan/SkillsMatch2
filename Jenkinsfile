@@ -53,9 +53,9 @@ pipeline {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
                     sh "kubectl --kubeconfig=$KUBECONFIG get nodes"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment jobdeploy1 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment frontenddeploy1 --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment backenddeploy1 --image=insiafarhan/skillsmatch1:backendimage7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment jobdeploy2 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment frontenddeploy2 --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment backenddeploy2 --image=insiafarhan/skillsmatch1:backendimage7 --replicas=3"
                 }
             }
         }
@@ -64,9 +64,9 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "kubectl expose deployment jobdeploy1 --port=2003 --type=LoadBalancer"
-                    sh "kubectl expose deployment frontenddeploy1 --port=3000 --type=LoadBalancer"
-                    sh "kubectl expose deployment backenddeploy1 --port=5000 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment jobdeploy2 --port=2003 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment frontenddeploy2 --port=3000 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment backenddeploy2 --port=5000 --type=LoadBalancer"
                     }
             }
         }
