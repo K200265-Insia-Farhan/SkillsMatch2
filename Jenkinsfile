@@ -1,65 +1,46 @@
 pipeline {
     agent any
-    
-    environment {
-        DOCKER_HUB_CREDENTIALS_ID = 'dockerhub' // Updated credentials ID
-        DOCKER_HUB_REPO = 'insiafarhan/skillsmatch2'
-        DOCKER_IMAGE_TAG = 'frontendimage5'
-    }
-    
     stages {
         stage('Checkout') {
             steps {
                 // Checkout code from the repository
-                git branch: 'main', url: 'https://github.com/K200265-Insia-Farhan/SkillsMatch2.git'
-            }
-        }
-        stage('Navigate to Code Directory') {
-            steps {
                 script {
-                    // Change directory to where the code has been cloned
-                    dir('SkillsMatch2') {
-                        // Print contents of the current directory for verification
-                        bat 'dir'
-                    }
+                    git branch: 'main', url: 'https://github.com/K200265-Insia-Farhan/SkillsMatch2.git'
                 }
             }
         }
-        stage('Build Docker Image') {
+        stage('Build Docker Images') {
             steps {
                 script {
-                    // Change directory to frontend directory
-                    dir('SkillsMatch2/frontend') {
-                        // Build Docker image using Dockerfile
-                        docker.build("${env.DOCKER_HUB_REPO}:${env.DOCKER_IMAGE_TAG}")
-                    }
+                    // Change directory to frontend and build Docker image
+                    sh "docker build -t insiafarhan/skillsmatch1:frontend7 frontend"
+                    sh "docker build -t insiafarhan/skillsmatch1:backend7 backend"
+                    sh "docker build -t insiafarhan/skillsmatch1:jobimage7 Job"
                 }
             }
         }
-        stage('Login to Docker Hub') {
+        stage('Push Docker Images') {
             steps {
                 script {
-                    // Login to Docker Hub using credentials
-                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKER_HUB_CREDENTIALS_ID) {
-                        // No operation needed here, as withRegistry handles the login
-                    }
+                    // Push the Docker image to Docker Hub or your Docker registry
+                    sh "docker login -u insiafarhan -p 123456789"
+                    sh "docker push insiafarhan/skillsmatch1:frontend7"
+                    sh "docker push insiafarhan/skillsmatch1:backend7"
+                    sh "docker push insiafarhan/skillsmatch1:jobimage7"
                 }
             }
         }
-        stage('Push Docker Image') {
+        
+        stage('Pull Docker Images') {
             steps {
                 script {
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKER_HUB_CREDENTIALS_ID) {
-                        docker.image("${env.DOCKER_HUB_REPO}:${env.DOCKER_IMAGE_TAG}").push()
-                    }
+                    // Push the Docker image to Docker Hub or your Docker registry
+                    sh "docker login -u insiafarhan -p 123456789"
+                    sh "docker pull insiafarhan/skillsmatch1:frontend7"
+                    sh "docker pull insiafarhan/skillsmatch1:backend7"
+                    sh "docker pull insiafarhan/skillsmatch1:jobimage7"
                 }
             }
         }
-        // Add more stages as needed
     }
 }
-
-
-}
- 
