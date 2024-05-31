@@ -64,9 +64,9 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment jobdeploy2 --port=2003 --type=LoadBalancer"
-                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment frontenddeploy2 --port=3000 --type=LoadBalancer"
-                    sh "kubectl --kubeconfig=$KUBECONFIG kubectl expose deployment backenddeploy2 --port=5000 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG expose deployment jobdeploy2 --port=2003 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG expose deployment frontenddeploy2 --port=3000 --type=LoadBalancer"
+                    sh "kubectl --kubeconfig=$KUBECONFIG expose deployment backenddeploy2 --port=5000 --type=LoadBalancer"
                     }
             }
         }
