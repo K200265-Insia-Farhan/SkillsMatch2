@@ -47,6 +47,9 @@ pipeline {
         stage('Create K8 deployments') {
             steps {
                 script {
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:frontend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:backend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:jobimage7"
                     // Push the Docker image to Docker Hub or your Docker registry
                     sh "kubectl create deployment jobdeploy1 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
                     sh "kubectl create deployment frontenddeploy1 --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
