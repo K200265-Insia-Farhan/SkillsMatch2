@@ -13,10 +13,10 @@ pipeline {
             steps {
                 script {
                     // Change directory to frontend and build Docker image
-                    sh "sudo docker login -u insiafarhan -p 123456789"
-                    sh "sudo docker build -t insiafarhan/skillsmatch1:frontend7 frontend"
-                    sh "sudo docker build -t insiafarhan/skillsmatch1:backend7 backend"
-                    sh "sudo docker build -t insiafarhan/skillsmatch1:jobimage7 Job"
+                    sh "echo '123456789' | sudo -S docker login -u insiafarhan --password-stdin"
+                    sh "sudo -S docker build -t insiafarhan/skillsmatch1:frontend7 frontend"
+                    sh "sudo -S docker build -t insiafarhan/skillsmatch1:backend7 backend"
+                    sh "sudo -S docker build -t insiafarhan/skillsmatch1:jobimage7 Job"
                 }
             }
         }
@@ -24,10 +24,10 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "sudo docker login -u insiafarhan -p 123456789"
-                    sh "sudo docker push insiafarhan/skillsmatch1:frontend7"
-                    sh "sudo docker push insiafarhan/skillsmatch1:backend7"
-                    sh "sudo docker push insiafarhan/skillsmatch1:jobimage7"
+                    sh "echo '123456789' | sudo -S docker login -u insiafarhan --password-stdin"
+                    sh "sudo -S docker push insiafarhan/skillsmatch1:frontend7"
+                    sh "sudo -S docker push insiafarhan/skillsmatch1:backend7"
+                    sh "sudo -S docker push insiafarhan/skillsmatch1:jobimage7"
                 }
             }
         }
@@ -36,10 +36,10 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "sudo docker login -u insiafarhan -p 123456789"
-                    sh "sudo docker pull insiafarhan/skillsmatch1:frontend7"
-                    sh "sudo docker pull insiafarhan/skillsmatch1:backend7"
-                    sh "sudo docker pull insiafarhan/skillsmatch1:jobimage7"
+                    sh "echo '123456789' | sudo -S docker login -u insiafarhan --password-stdin"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:frontend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:backend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:jobimage7"
                 }
             }
         }
