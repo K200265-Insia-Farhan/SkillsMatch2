@@ -48,9 +48,9 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "kubectl create deployment jobdeploy1 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
-                    sh "kubectl create deployment frontenddeploy1 --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
-                    sh "kubectl create deployment backenddeploy1 --image=insiafarhan/skillsmatch1:backendimage7 --replicas=3"
+                    sh "kubectl create deployment jobdeploy --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
+                    sh "kubectl create deployment frontenddeploy --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
+                    sh "kubectl create deployment backenddeploy --image=insiafarhan/skillsmatch1:backendimage7 --replicas=3"
                 }
             }
         }
@@ -59,9 +59,9 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
-                    sh "kubectl expose deployment jobdeploy1 --port=2003 --type=LoadBalancer"
-                    sh "kubectl expose deployment frontenddeploy1 --port=3000 --type=LoadBalancer"
-                    sh "kubectl expose deployment backenddeploy1 --port=5000 --type=LoadBalancer"
+                    sh "kubectl expose deployment jobdeploy --port=2003 --type=LoadBalancer"
+                    sh "kubectl expose deployment frontenddeploy --port=3000 --type=LoadBalancer"
+                    sh "kubectl expose deployment backenddeploy --port=5000 --type=LoadBalancer"
                     }
             }
         }
