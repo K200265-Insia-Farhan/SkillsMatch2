@@ -13,6 +13,7 @@ pipeline {
             steps {
                 script {
                     // Change directory to frontend and build Docker image
+                    sh "sudo docker login -u insiafarhan -p 123456789"
                     sh "sudo docker build -t insiafarhan/skillsmatch1:frontend7 frontend"
                     sh "sudo docker build -t insiafarhan/skillsmatch1:backend7 backend"
                     sh "sudo docker build -t insiafarhan/skillsmatch1:jobimage7 Job"
