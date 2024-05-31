@@ -52,6 +52,10 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
+                    sh "echo '123456789' | sudo -S docker login -u insiafarhan --password-stdin"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:frontend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:backend7"
+                    sh "sudo -S docker pull insiafarhan/skillsmatch1:jobimage7"
                     sh "kubectl --kubeconfig=$KUBECONFIG get nodes"
                     sh "kubectl --kubeconfig=$KUBECONFIG create deployment jobdeploy2 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
                     sh "kubectl --kubeconfig=$KUBECONFIG create deployment frontenddeploy2 --image=insiafarhan/skillsmatch1:frontendimage7 --replicas=3"
