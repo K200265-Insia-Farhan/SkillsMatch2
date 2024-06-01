@@ -53,9 +53,9 @@ pipeline {
                 script {
                     // Push the Docker image to Docker Hub or your Docker registry
                     sh "kubectl --kubeconfig=$KUBECONFIG get nodes"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment jobdeploy2 --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment frontenddeploy2 --image=insiafarhan/skillsmatch1:frontend7 --replicas=3"
-                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment backenddeploy2 --image=insiafarhan/skillsmatch1:backend7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment jobdeploy --image=insiafarhan/skillsmatch1:jobimage7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment frontenddeploy --image=insiafarhan/skillsmatch1:frontend7 --replicas=3"
+                    sh "kubectl --kubeconfig=$KUBECONFIG create deployment backenddeploy --image=insiafarhan/skillsmatch1:backend7 --replicas=3"
                 }
             }
         }
