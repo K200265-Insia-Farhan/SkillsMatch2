@@ -29,9 +29,9 @@ def connect_to_database(config):
 # Configuration for the "development" environment
 development_config = {
     "username": "postgres",
-    "password": "123456789",
+    "password": "skillsmatch",
     "database": "postgres",
-    "host": "testing.cjkwoye4kdui.us-east-1.rds.amazonaws.com",
+    "host": "skillsmatch.cjkwoye4kdui.us-east-1.rds.amazonaws.com",
     "port": 5432,
     "sslmode": "require",
 }
